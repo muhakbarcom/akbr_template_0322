@@ -7,6 +7,7 @@ class Auth extends CI_Controller
     parent::__construct();
     $this->load->library('form_validation');
     $this->load->model('User_model');
+    $this->load->config('akbrconfig');
   }
 
   public function index()
@@ -40,9 +41,21 @@ class Auth extends CI_Controller
     if ($user) {
       if ($user['is_active'] == 1) {
         if (password_verify($password, $user['password'])) {
+
+          // role_id to role_name
+          $role_id = $user['role_id'];
+          $role = $this->db->get_where('user_role', ['id' => $role_id])->row_array();
+          $role_name = $role['role_name'];
+
           $data = [
             'email' => $user['email'],
             'role_id' => $user['role_id'],
+            'role_name' => $role_name,
+            'id' => $user['id'],
+            'name' => $user['name'],
+            'image' => $user['image'],
+            'is_active' => $user['is_active'],
+            'date_created' => $user['date_created']
           ];
           $this->session->set_userdata($data);
           redirect('dashboard');
@@ -111,8 +124,12 @@ class Auth extends CI_Controller
 
   public function logout()
   {
-    $this->session->sess_destroy();
-    $this->session->set_flashdata('message', 'Logout Berhasil');
+
+    $this->session->unset_userdata('email');
+    $this->session->unset_userdata('role_id');
+
+    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">You have been logged out!</div>');
+
     redirect('auth');
   }
 }

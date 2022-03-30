@@ -2,8 +2,14 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 
-$config['sitename'] = '<i class="fa fa-laptop-code"></i> ';
-$config['sitename_mini'] = '<i class="fa fa-laptop-code"></i>';
+$config['title'] = 'AkbrTemplate';
+$config['author'] = 'Akbr';
+$config['favicon'] = 'assets/images/logo.png';
+$config['logo'] = 'assets/images/logo.png';
+$config['logo_login'] = 'assets/images/logo.png';
+$config['logo_login_mini'] = 'assets/images/logo_login_mini.png';
+$config['logo_login_mini_white'] = 'assets/images/logo_login_mini_white.png';
+
 
 // Data eselon: eselon 1 sd eselon 4
 $config['list_eselon'] = array(1, 2, 3, 4);
